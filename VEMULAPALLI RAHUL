@@ -1,0 +1,107 @@
+import java.util.Scanner;
+import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+ 
+class RMS
+ {
+    Scanner sc = new Scanner(System.in);   
+    void busBoy()
+    {
+         System.out.println("Table is alloted to the Customer and waiter serves water to the Customer");
+    }
+    int order(Scanner sc)
+    {
+        int cost=0;
+ 
+     while(true)
+     {
+          //System.out.println("Enter your choice:\n1.Biryani Rs.200\n2.Roti Rs.20\n3.Curry Rs.50\n4.Water bottle Rs.20\n5.Wil order later");
+	String Menu = "F:\\Menu.txt";
+
+	try (BufferedReader br = new BufferedReader(new FileReader(Menu))) {
+
+			String sCurrentLine;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 
+             int ch= sc.nextInt();
+ 
+             System.out.println(ch);
+            switch(ch)
+            {
+                case 1:cost+=200;
+                        break;
+                case 2:System.out.println("Enter the number of roties");
+                        int num= sc.nextInt();
+                    System.out.println(num);
+                        cost+=num*20;
+                        break;
+                case 3:cost+=50;
+                        break;
+                case 4:cost+=20;
+                        break;
+                case 5:return cost;
+            }
+ 
+ 
+     }
+     }
+ 
+    void bill(int cost)
+    {
+        float totalCost = (float) cost+((float)cost*0.18f);
+        System.out.println("Food cost : "+cost);
+        System.out.println("Central GST : "+cost*0.09);
+        System.out.println("State GST : "+cost*0.09);
+        System.out.println("Total cost : "+totalCost);
+    }
+	}
+ 
+ 
+class MS
+{
+        public static void main(String[] args)
+        {
+            String order="yes";
+           int cost=0;
+              RMS obj= new RMS();
+            Scanner sc= new Scanner(System.in);
+            System.out.println("RESTAURANT NAME \nWELCOME TO RESTAURANT MANAGEMENT SYSTEM ");
+            System.out.println("Enter the number of Available seats  ");
+       int  n = sc.nextInt();
+            //System.out.println(n);
+            System.out.println("WELCOME");
+            System.out.println("Enter the number of customers  ");
+            int n1= sc.nextInt();
+            if(n1<n)
+            {
+                n-=n1;
+                obj.busBoy();     
+                while(order.equals("yes"))
+                {
+                       System.out.println("Do you want to order yes/no");
+                       order = sc.next();
+                    System.out.println(order);
+                        if(order.equals("yes"))
+                          cost+=  obj.order( sc);
+                        System.out.println("After 15 minutes");
+                }
+                System.out.println("Your bill is");
+                obj.bill(cost);
+                System.out.println("Thank you for visiting");
+                n+=n1;              
+            }
+            else
+                System.out.println("Sorry ! Table is not Available.");
+ 
+ 
+        }
+}
